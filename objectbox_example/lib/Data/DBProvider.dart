@@ -1,7 +1,59 @@
 import 'dart:io';
+import 'package:objectbox_example/Models/User.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:path/path.dart';
+import '../objectbox.g.dart';
 
+
+class DBProvider {
+
+  DBProvider._();
+
+  static final DBProvider db = DBProvider._();
+  Store _store;
+  Box<User> _boxUser;
+
+  initDB() {
+    getApplicationDocumentsDirectory().then((Directory dir) {
+      _store = Store(getObjectBoxModel(), directory: dir.path + '/objectbox');
+      _boxUser = _store.box<User>();
+    });
+  }
+
+  clear() {
+    _store.close();
+  }
+
+  newUsersList(List<User> users) async {
+
+    await Future.wait( users.map((element) async {
+      _boxUser.put(element);
+
+      // final id = element.id;
+      // final users = await db.query("User", where: "id = ?", whereArgs: [id]);
+      // final jsonUser = element.toMap;
+
+      // //если такого клиента нет, то создаем нового
+      // if (users.isEmpty){
+      //   await db.insert("User", jsonUser);
+      // } else {
+      //   await db.update("User", jsonUser, where: "id = ?", whereArgs: [id]);
+      // }
+
+    }));
+
+  }
+
+  List<User> getAllUsers() {
+    final List<User> listUsers = _boxUser.getAll();
+    return listUsers;
+  }
+
+
+
+}
+
+
+/*
 class DBProvider {
   /*
   Создайте частный конструктор, который 
@@ -137,3 +189,5 @@ class DBProvider {
     db.rawDelete("Delete * from User");
   }
 }
+
+*/

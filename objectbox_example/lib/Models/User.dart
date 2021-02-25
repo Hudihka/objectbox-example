@@ -1,11 +1,16 @@
 
 import 'package:flutter/material.dart';
+import 'package:objectbox/objectbox.dart';
 
+@Entity()
 class User{
   int id;
   String name;
   String phone;
   String email;
+
+    // @Transient() //  не будет сохр в память
+    // int notPersisted;
 
   User({@required this.id, this.name, this.email, this.phone}) : assert(id != null);
 
