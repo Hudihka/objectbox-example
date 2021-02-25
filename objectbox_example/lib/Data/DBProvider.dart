@@ -9,13 +9,24 @@ class DBProvider {
   DBProvider._();
 
   static final DBProvider db = DBProvider._();
-  Store _store;
-  Box<User> _boxUser;
+  static Store _store;
+  // Box<User> _boxUser;
 
-  initDB() {
-    getApplicationDocumentsDirectory().then((Directory dir) {
+  Future<Store> get _dataBase async {
+    if (_store != null) {
+      return _store;
+    }
+
+    // если _database имеет значение null, мы создаем его экземпляр
+    await initDB();
+    return _store;
+  }
+
+  Future<Store> initDB() async {
+    
+    await getApplicationDocumentsDirectory().then((Directory dir) async {
+      print("----------------------------------------------------");
       _store = Store(getObjectBoxModel(), directory: dir.path + '/objectbox');
-      _boxUser = _store.box<User>();
     });
   }
 
@@ -23,10 +34,12 @@ class DBProvider {
     _store.close();
   }
 
-  newUsersList(List<User> users) async {
+  Future<void> newUsersList(List<User> users) async {
+    final db = await _dataBase;
+    final boxUser = db.box<User>();
 
     await Future.wait( users.map((element) async {
-      _boxUser.put(element);
+      boxUser.put(element);
 
       // final id = element.id;
       // final users = await db.query("User", where: "id = ?", whereArgs: [id]);
@@ -43,9 +56,12 @@ class DBProvider {
 
   }
 
-  List<User> getAllUsers() {
-    final List<User> listUsers = _boxUser.getAll();
-    return listUsers;
+  Future<List<User>> getAllUsers() async {
+    final db = await _dataBase;
+    final boxUser = db.box<User>();
+
+    final List<User> listUsers = boxUser.getAll();
+    return listUsers == Null ? [] : listUsers;
   }
 
 
