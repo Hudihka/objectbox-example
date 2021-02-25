@@ -41,6 +41,7 @@ class UserCubit extends Cubit<UserState>{
       // загружаем юзеров и показываем уже из памяти
 
       await _userProvider.getUser();
+
       _listUser = await cash.getAllUsers();
       emit(userState.copyWith(listUsers: _listUser, loadStatus: false));
 

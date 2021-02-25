@@ -14,7 +14,6 @@ class UserProvider {
     final response = await http.get('https://jsonplaceholder.typicode.com/users');
 
     if (response.statusCode == 200){
-      print("-----------------");
       final List<dynamic> userJson = json.decode(response.body);
       final List<User> clients = userJson.map((json) => User.fromJson(json)).toList();
 

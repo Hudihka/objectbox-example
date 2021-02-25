@@ -25,7 +25,6 @@ class DBProvider {
   Future<Store> initDB() async {
     
     await getApplicationDocumentsDirectory().then((Directory dir) async {
-      print("----------------------------------------------------");
       _store = Store(getObjectBoxModel(), directory: dir.path + '/objectbox');
     });
   }
@@ -34,25 +33,12 @@ class DBProvider {
     _store.close();
   }
 
-  Future<void> newUsersList(List<User> users) async {
+   newUsersList(List<User> users) async {
     final db = await _dataBase;
     final boxUser = db.box<User>();
 
-    await Future.wait( users.map((element) async {
-      boxUser.put(element);
-
-      // final id = element.id;
-      // final users = await db.query("User", where: "id = ?", whereArgs: [id]);
-      // final jsonUser = element.toMap;
-
-      // //если такого клиента нет, то создаем нового
-      // if (users.isEmpty){
-      //   await db.insert("User", jsonUser);
-      // } else {
-      //   await db.update("User", jsonUser, where: "id = ?", whereArgs: [id]);
-      // }
-
-    }));
+    List<int> ids = boxUser.putMany(users);
+    boxUser.getMany(ids);
 
   }
 
@@ -61,7 +47,7 @@ class DBProvider {
     final boxUser = db.box<User>();
 
     final List<User> listUsers = boxUser.getAll();
-    return listUsers == Null ? [] : listUsers;
+    return (listUsers == Null) ? [] : listUsers;
   }
 
 

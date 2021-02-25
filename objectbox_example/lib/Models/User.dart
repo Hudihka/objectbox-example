@@ -1,10 +1,11 @@
-
 import 'package:flutter/material.dart';
 import 'package:objectbox/objectbox.dart';
 
 @Entity()
 class User{
-  int id;
+  int id;//должно быть всегда поле id. Сами его мы не задаем
+
+  int idBack; //поле необходимо id для сохранения значения пришедшего с бэка
   String name;
   String phone;
   String email;
@@ -12,21 +13,22 @@ class User{
     // @Transient() //  не будет сохр в память
     // int notPersisted;
 
-  User({@required this.id, this.name, this.email, this.phone}) : assert(id != null);
+  User({@required this.idBack, this.name, this.email, this.phone});// : assert(idBack != null);
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-      id: json['id'],
+      idBack: json['id'],
       name: json['name'],
       email: json['email'],
       phone: json['phone']
     );
   }
 
-  Map<String, dynamic> get toMap{
-    return {"id": id,
-    "name": name,
-    "phone": phone,
-    "email": email};
-  }
+  // Map<String, dynamic> get toMap{
+  //   return {"id": id,
+  //   "name": name,
+  //   "phone": phone,
+  //   "email": email};
+  // }
 }
+
