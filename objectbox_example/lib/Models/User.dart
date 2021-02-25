@@ -16,8 +16,10 @@ class User{
   User({@required this.idBack, this.name, this.email, this.phone});// : assert(idBack != null);
 
   factory User.fromJson(Map<String, dynamic> json) {
+    final idBac = json['id'];
+
     return User(
-      idBack: json['id'],
+      idBack: idBac,
       name: json['name'],
       email: json['email'],
       phone: json['phone']
