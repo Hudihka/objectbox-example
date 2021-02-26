@@ -17,6 +17,19 @@ class LoadContent {
     final List<Map<String, dynamic>> allContent = [Prepositions.allWord, ProfessionAndWork.allWord,
                                                    Subjects.allWord, Time.allWord];
 
+    // {"theme" : "Предлоги", "allWords" : Prepositions._words};                                               
+
+    Future.wait(allContent.map((json) async {
+      final nameTheme = json["theme"];
+      final List<Map<String, dynamic>> jsonListWord = json['allWords'];
+
+      final List<Word> clients = jsonListWord.map((jsonWord) => Word.from).toList();
+
+
+    }));
+
+
+
     if (response.statusCode == 200){
       final List<dynamic> userJson = json.decode(response.body);
       final List<User> clients = userJson.map((json) => User.fromJson(json)).toList();

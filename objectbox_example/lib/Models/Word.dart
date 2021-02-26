@@ -1,5 +1,6 @@
 
 import 'package:objectbox/objectbox.dart';
+import 'dart:io';
 
 @Entity()
 class Word{
@@ -20,4 +21,5 @@ class Word{
                 descript: json['descript'],
                 theme: theme);
   }
+
 }
