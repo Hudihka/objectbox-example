@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'Cubit/UserCubit.dart';
-import 'Models/User.dart';
+import 'Models/ThemeWords.dart';
 
 
 
@@ -15,7 +15,7 @@ class UserList extends StatelessWidget {
 
     return BlocBuilder<ThemeCubit, ThemeState>(builder: (context, state) {
       if (state is ThemeState){
-        List<Theme> _dataArray = state.listThemes;
+        List<ThemeWords> _dataArray = state.listThemes;
         bool _loadStatus = state.loadStatus;
 
         if (_dataArray.isEmpty)  {
@@ -28,7 +28,7 @@ class UserList extends StatelessWidget {
             child: ListView.builder(
                 itemCount: _dataArray.length,
                 itemBuilder: (context, index) {
-                  Theme obj = _dataArray[index];
+                  ThemeWords obj = _dataArray[index];
                   return _cellForIndex(obj);
                 }),
             onRefresh: (){
@@ -41,7 +41,7 @@ class UserList extends StatelessWidget {
     });
   }
 
-  Widget _cellForIndex(Theme obj) {
+  Widget _cellForIndex(ThemeWords obj) {
     //ячейка по индексу
 
     return Ink(
@@ -49,12 +49,12 @@ class UserList extends StatelessWidget {
       child: ListTile(
         subtitle: Text(obj.name),
         title: Text(obj.name),
-        leading: CircleAvatar(
-          child: Text(obj.id.toString()),
-        ),
-        trailing: Text(obj.email),
+        // leading: CircleAvatar(
+        //   child: Text(obj.id.toString()),
+        // ),
+        trailing: Text('Всего ${obj.allWords.length} слов'),
         onTap: () {
-          print('---------${obj.name} - ${obj.phone}----------------');
+          print('---------${obj.name} - ---------------');
         },
       ),
     );

@@ -1,15 +1,16 @@
-import 'package:flutter/material.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:objectbox_example/API/LoadContent.dart';
 import 'package:objectbox_example/Data/DBProvider.dart';
+import 'package:objectbox_example/Models/ThemeWords.dart';
 
 class ThemeState {
   final bool loadStatus;
-  final List<Theme> listThemes;
+  final List<ThemeWords> listThemes;
 
   ThemeState({this.loadStatus, this.listThemes});
 
-  ThemeState copyWith({bool loadStatus, List<Theme> listThemes}){
+  ThemeState copyWith({bool loadStatus, List<ThemeWords> listThemes}){
 
     return ThemeState(loadStatus: loadStatus ?? this.loadStatus,
                      listThemes: listThemes ?? this.listThemes);
@@ -22,7 +23,7 @@ class ThemeState {
 class ThemeCubit extends Cubit<ThemeState>{
   
   LoadContent _userProvider = LoadContent();
-  List<Theme> _listThemes = [];
+  List<ThemeWords> _listThemes = [];
   final DBProvider cash = DBProvider.db;
 
   final ThemeState userState;
