@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:objectbox_example/API/UserProvider.dart';
+import 'package:objectbox_example/API/LoadContent.dart';
 import 'package:objectbox_example/Data/DBProvider.dart';
 import 'package:objectbox_example/Models/User.dart';
 
@@ -22,7 +22,7 @@ class UserState {
 
 class UserCubit extends Cubit<UserState>{
   
-  UserProvider _userProvider = UserProvider();
+  LoadContent _userProvider = LoadContent();
   List<User> _listUser = [];
   final DBProvider cash = DBProvider.db;
 
