@@ -4,44 +4,80 @@
   "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
   "entities": [
     {
-      "id": "1:1832078332004714090",
-      "lastPropertyId": "4:8630611726086961990",
-      "name": "User",
+      "id": "2:1563426567342707021",
+      "lastPropertyId": "2:3917263042737748949",
+      "name": "ThemeWords",
       "properties": [
         {
-          "id": "1:68379167268536772",
+          "id": "1:2108749214765119852",
           "name": "id",
           "type": 6,
           "flags": 1
         },
         {
-          "id": "2:3649932714180222825",
+          "id": "2:3917263042737748949",
           "name": "name",
           "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "3:9126585433488109095",
+      "lastPropertyId": "6:8036402140679728775",
+      "name": "Word",
+      "properties": [
+        {
+          "id": "1:2701206202448723969",
+          "name": "id",
+          "type": 6,
+          "flags": 1
         },
         {
-          "id": "3:5415255559237254566",
-          "name": "phone",
+          "id": "2:6019318246698606961",
+          "name": "engValue",
           "type": 9
         },
         {
-          "id": "4:8630611726086961990",
-          "name": "email",
+          "id": "3:8763352492482075257",
+          "name": "rusValue",
           "type": 9
+        },
+        {
+          "id": "4:1305068114717429134",
+          "name": "descript",
+          "type": 9
+        },
+        {
+          "id": "5:3592302357319691855",
+          "name": "theme",
+          "type": 9
+        },
+        {
+          "id": "6:8036402140679728775",
+          "name": "favorit",
+          "type": 1
         }
       ],
       "relations": []
     }
   ],
-  "lastEntityId": "1:1832078332004714090",
+  "lastEntityId": "3:9126585433488109095",
   "lastIndexId": "0:0",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
   "modelVersionParserMinimum": 5,
-  "retiredEntityUids": [],
+  "retiredEntityUids": [
+    1832078332004714090
+  ],
   "retiredIndexUids": [],
-  "retiredPropertyUids": [],
+  "retiredPropertyUids": [
+    68379167268536772,
+    3649932714180222825,
+    5415255559237254566,
+    8630611726086961990
+  ],
   "retiredRelationUids": [],
   "version": 1
 }
