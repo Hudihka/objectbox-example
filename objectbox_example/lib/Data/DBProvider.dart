@@ -1,7 +1,5 @@
 import 'dart:io';
 import 'package:objectbox_example/Models/Theme.dart';
-import 'package:objectbox_example/Models/User.dart';
-import 'package:objectbox_example/Models/Word.dart';
 import 'package:path_provider/path_provider.dart';
 import '../objectbox.g.dart';
 
@@ -35,21 +33,21 @@ class DBProvider {
     _store.close();
   }
 
-  newUsersList(List<User> users) async {
-    final db = await _dataBase;
-    final boxUser = db.box<User>();
+  // newUsersList(List<User> users) async {
+  //   final db = await _dataBase;
+  //   final boxUser = db.box<User>();
 
-    List<int> ids = boxUser.putMany(users);
-    boxUser.getMany(ids);
-  }
+  //   List<int> ids = boxUser.putMany(users);
+  //   boxUser.getMany(ids);
+  // }
 
-  Future<List<User>> getAllUsers() async {
-    final db = await _dataBase;
-    final boxUser = db.box<User>();
+  // Future<List<User>> getAllUsers() async {
+  //   final db = await _dataBase;
+  //   final boxUser = db.box<User>();
 
-    final List<User> listUsers = boxUser.getAll();
-    return (listUsers == Null) ? [] : listUsers;
-  }
+  //   final List<User> listUsers = boxUser.getAll();
+  //   return (listUsers == Null) ? [] : listUsers;
+  // }
 
   newThemeList(List<Theme> themes) async {
     final db = await _dataBase;
@@ -57,6 +55,14 @@ class DBProvider {
 
     List<int> ids = boxThemes.putMany(themes);
     boxThemes.getMany(ids);
+  }
+
+  Future<List<Theme>> getAllThemes() async {
+    final db = await _dataBase;
+    final boxTheme = db.box<Theme>();
+
+    final List<Theme> listThemes = boxTheme.getAll();
+    return (listThemes == Null) ? [] : listThemes;
   }
   
   // newWordList(List<Word> words) async {

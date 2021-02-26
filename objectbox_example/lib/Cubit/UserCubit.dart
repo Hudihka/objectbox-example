@@ -2,61 +2,60 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:objectbox_example/API/LoadContent.dart';
 import 'package:objectbox_example/Data/DBProvider.dart';
-import 'package:objectbox_example/Models/User.dart';
 
-class UserState {
+class ThemeState {
   final bool loadStatus;
-  final List<User> listUsers;
+  final List<Theme> listThemes;
 
-  UserState({this.loadStatus, this.listUsers});
+  ThemeState({this.loadStatus, this.listThemes});
 
-  UserState copyWith({bool loadStatus, List<User> listUsers}){
+  ThemeState copyWith({bool loadStatus, List<Theme> listThemes}){
 
-    return UserState(loadStatus: loadStatus ?? this.loadStatus,
-                     listUsers: listUsers ?? this.listUsers);
+    return ThemeState(loadStatus: loadStatus ?? this.loadStatus,
+                     listThemes: listThemes ?? this.listThemes);
 
   }
   
 }
 
 
-class UserCubit extends Cubit<UserState>{
+class ThemeCubit extends Cubit<ThemeState>{
   
   LoadContent _userProvider = LoadContent();
-  List<User> _listUser = [];
+  List<Theme> _listThemes = [];
   final DBProvider cash = DBProvider.db;
 
-  final UserState userState;
-  UserCubit(this.userState) : super(UserState());
+  final ThemeState userState;
+  ThemeCubit(this.userState) : super(ThemeState());
 
   Future<void> fetchUser() async {
     //показываем в начале пустой экран
-    emit(userState.copyWith(listUsers: _listUser, loadStatus: true));
+    emit(userState.copyWith(listThemes: _listThemes, loadStatus: true));
 
     //грузим юзеров из памяти
-    _listUser = await cash.getAllUsers();
-    emit(userState.copyWith(listUsers: _listUser, loadStatus: true));
+    _listThemes = await cash.getAllThemes();
+    emit(userState.copyWith(listThemes: _listThemes, loadStatus: true));
 
     try {
       // загружаем юзеров и показываем уже из памяти
 
       await _userProvider.getUser();
 
-      _listUser = await cash.getAllUsers();
-      emit(userState.copyWith(listUsers: _listUser, loadStatus: false));
+      _listThemes = await cash.getAllThemes();
+      emit(userState.copyWith(listThemes: _listThemes, loadStatus: false));
 
     } catch(_) {
-      emit(userState.copyWith(listUsers: _listUser, loadStatus: false));
+      emit(userState.copyWith(listThemes: _listThemes, loadStatus: false));
     }
   }
 
   Future<void> reloadUser() async {
     try {
       await _userProvider.getUser();
-      _listUser = await cash.getAllUsers();
-      emit(userState.copyWith(listUsers: _listUser, loadStatus: false));
+      _listThemes = await cash.getAllThemes();
+      emit(userState.copyWith(listThemes: _listThemes, loadStatus: false));
     } catch(_) {
-      emit(userState.copyWith(listUsers: _listUser, loadStatus: false));
+      emit(userState.copyWith(listThemes: _listThemes, loadStatus: false));
     }
   }
 

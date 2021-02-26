@@ -10,12 +10,12 @@ class UserList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //говорит о том, что грузим юзеров при запуске
-    final UserCubit userCubit = context.read();
+    final ThemeCubit userCubit = context.read();
     userCubit.fetchUser();
 
-    return BlocBuilder<UserCubit, UserState>(builder: (context, state) {
-      if (state is UserState){
-        List<User> _dataArray = state.listUsers;
+    return BlocBuilder<ThemeCubit, ThemeState>(builder: (context, state) {
+      if (state is ThemeState){
+        List<Theme> _dataArray = state.listThemes;
         bool _loadStatus = state.loadStatus;
 
         if (_dataArray.isEmpty)  {
@@ -28,7 +28,7 @@ class UserList extends StatelessWidget {
             child: ListView.builder(
                 itemCount: _dataArray.length,
                 itemBuilder: (context, index) {
-                  User obj = _dataArray[index];
+                  Theme obj = _dataArray[index];
                   return _cellForIndex(obj);
                 }),
             onRefresh: (){
@@ -41,7 +41,7 @@ class UserList extends StatelessWidget {
     });
   }
 
-  Widget _cellForIndex(User obj) {
+  Widget _cellForIndex(Theme obj) {
     //ячейка по индексу
 
     return Ink(
@@ -63,7 +63,7 @@ class UserList extends StatelessWidget {
   Future<void> _refresh(BuildContext context, bool loadStatus) async {
     if (loadStatus == false) {
       //идем в верх по дереву виджетов пока не дойдем до блока
-      final UserCubit userCubit = context.read();
+      final ThemeCubit userCubit = context.read();
       userCubit.reloadUser();
     }
   }

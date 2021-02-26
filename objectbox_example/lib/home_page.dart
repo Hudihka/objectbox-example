@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'Cubit/UserCubit.dart';
-import 'Data/DBProvider.dart';
 import 'UserList.dart';
 
 class HomePage extends StatelessWidget {
-  final usersState = UserState();
+  final usersState = ThemeState();
 
   
 
@@ -15,8 +14,8 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     // DBProvider.db.initDB();
 
-    return BlocProvider<UserCubit>(
-      create: (context) => UserCubit(usersState),
+    return BlocProvider<ThemeCubit>(
+      create: (context) => ThemeCubit(usersState),
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
