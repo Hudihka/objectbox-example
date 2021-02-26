@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:objectbox_example/Models/ThemeWords.dart';
+import 'package:objectbox_example/Models/Word.dart';
 import 'package:path_provider/path_provider.dart';
 import '../objectbox.g.dart';
 
@@ -65,13 +66,13 @@ class DBProvider {
     return (listThemes == Null) ? [] : listThemes;
   }
   
-  // newWordList(List<Word> words) async {
-  //   final db = await _dataBase;
-  //   final boxWord = db.box<Word>();
+  newWordList(List<Word> words) async {
+    final db = await _dataBase;
+    final boxWord = db.box<Word>();
 
-  //   List<int> ids = boxWord.putMany(words);
-  //   boxWord.getMany(ids);
-  // }
+    List<int> ids = boxWord.putMany(words);
+    boxWord.getMany(ids);
+  }
 
   // newTheme(Theme theme, List<Word> words) async {
   //   final db = await _dataBase;

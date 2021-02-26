@@ -11,16 +11,16 @@ class ThemeWords{
 
   ThemeWords({this.name});
 
-  factory ThemeWords.fromJson(Map<String, dynamic> json) {
-    final nameTheme = json["theme"];
+  // factory ThemeWords.fromJson(Map<String, dynamic> json) {
+  //   final nameTheme = json["theme"];
 
-    final List<Map<String, dynamic>> jsonListWord = json['allWords'];
-    final List<Word> words = jsonListWord.map((jsonWord) => Word.fromJson(jsonWord, nameTheme)).toList();
+  //   final List<Map<String, dynamic>> jsonListWord = json['allWords'];
+  //   final List<Word> words = jsonListWord.map((jsonWord) => Word.fromJson(jsonWord, nameTheme)).toList();
 
-    ThemeWords theme = ThemeWords(name: nameTheme);
-    theme.allWords.addAll(words);
+  //   ThemeWords theme = ThemeWords(name: nameTheme);
+  //   theme.allWords.addAll(words);
 
-    return theme;
-  }
+  //   return theme;
+  // }
   
 }
