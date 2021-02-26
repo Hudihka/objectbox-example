@@ -15,7 +15,7 @@ class UserProvider {
 
     if (response.statusCode == 200){
       final List<dynamic> userJson = json.decode(response.body);
-      final List<User> clients = userJson.map((json) => User.fromJson(json)).toList();
+      List<User> clients = userJson.map((json) => User.fromJson(json)).toList();
 
       await DBProvider.db.newUsersList(clients);
     } else {

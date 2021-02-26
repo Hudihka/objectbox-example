@@ -38,9 +38,20 @@ class DBProvider {
     final boxUser = db.box<User>();
 
     User user = users.first;
+    int userID = user.idBack;
 
-    final id = boxUser.put(user);
-    boxUser.get(id);
+    final query = boxUser.query(User_.id.equals(userID)).build();
+    
+    if (query.find().isEmpty) {
+      final id = boxUser.put(user);
+      boxUser.get(id);
+    }
+
+
+
+
+    // final id = boxUser.put(user);
+    // boxUser.get(id);
 
     // List<int> ids = boxUser.putMany(users);
     // boxUser.getMany(ids);
