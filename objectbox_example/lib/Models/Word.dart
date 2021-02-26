@@ -15,7 +15,7 @@ class Word{
   Word({this.engValue, this.rusValue, this.descript, this.theme});
 
   factory Word.fromJson(Map<String, dynamic> json, String theme) {
-
+    
     return Word(engValue: json['engValue'],
                 rusValue: json['rusValue'],
                 descript: json['descript'],

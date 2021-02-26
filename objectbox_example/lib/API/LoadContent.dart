@@ -18,7 +18,12 @@ class LoadContent {
       Time.allWord
     ];
 
-    List<ThemeWords> themes = await Future.wait( allContent.map((element) => _createAndSaveTheme(element) ).toList());
+    List<ThemeWords> themes = [];
+    for (var i = 0; i < allContent.length; i++) {
+      Map<String, dynamic> json = allContent[i];
+      ThemeWords theme = await _createAndSaveTheme(json);
+      themes.add(theme);
+    }
 
     await DBProvider.db.newThemeList(themes);
 
@@ -28,15 +33,21 @@ class LoadContent {
     final nameTheme = json["theme"];
     final jsonListWord = json["allWords"];
 
-    print("---------00");
     ThemeWords theme = ThemeWords(name: nameTheme);
-    print("---------11");
 
-    
+    List<Word> words = [];
+    await Future.forEach(jsonListWord, (jsonWord) async {
+      final word = Word.fromJson(jsonWord, nameTheme);
+      words.add(word);
+    });
 
-    final List<Word> words = await Future.wait( jsonListWord.map((jsonWord) => Word.fromJson(jsonWord, nameTheme)).toList());
 
-    print("---------22");
+    // так не работает ХЗ почему
+    // List<Word> words1 = [];
+    // jsonListWord.map( (jsonWord) => Word.fromJson(jsonWord, nameTheme) ).toList();
+    // print(words1);
+
+
     await DBProvider.db.newWordList(words);
 
     theme.allWords.addAll(words);
