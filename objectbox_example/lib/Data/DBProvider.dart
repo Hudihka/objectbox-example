@@ -37,8 +37,13 @@ class DBProvider {
     final db = await _dataBase;
     final boxUser = db.box<User>();
 
-    List<int> ids = boxUser.putMany(users);
-    boxUser.getMany(ids);
+    User user = users.first;
+
+    final id = boxUser.put(user);
+    boxUser.get(id);
+
+    // List<int> ids = boxUser.putMany(users);
+    // boxUser.getMany(ids);
 
   }
 
