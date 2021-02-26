@@ -40,7 +40,7 @@ class ThemeCubit extends Cubit<ThemeState>{
     try {
       // загружаем юзеров и показываем уже из памяти
 
-      await _userProvider.getUser();
+      await _userProvider.getThemes();
 
       _listThemes = await cash.getAllThemes();
       emit(userState.copyWith(listThemes: _listThemes, loadStatus: false));
@@ -52,7 +52,7 @@ class ThemeCubit extends Cubit<ThemeState>{
 
   Future<void> reloadUser() async {
     try {
-      await _userProvider.getUser();
+      await _userProvider.getThemes();
       _listThemes = await cash.getAllThemes();
       emit(userState.copyWith(listThemes: _listThemes, loadStatus: false));
     } catch(_) {

@@ -18,44 +18,25 @@ class LoadContent {
       Time.allWord
     ];
 
-    List<ThemeWords> themes = [];
-
-    await Future.wait( allContent.map((element) async {
-      ThemeWords theme = await _createAndSaveTheme(element);
-      themes.add(theme);
-    }));
+    List<ThemeWords> themes = await Future.wait( allContent.map((element) => _createAndSaveTheme(element) ).toList());
 
     await DBProvider.db.newThemeList(themes);
 
-
-    // final Future<List<Theme>> themes = Future.wait( allContent.map((json) async {
-    //   final nameTheme = json["theme"];
-    //   final jsonListWord = json["allWords"];
-
-    //   ThemeWords theme = ThemeWords(name: nameTheme);
-
-    //   final List<Word> words = jsonListWord
-    //       .map((jsonWord) => Word.fromJson(jsonWord, nameTheme))
-    //       .toList();
-
-    //   await DBProvider.db.newWordList(words);
-
-    //   theme.allWords.addAll(words);
-
-    //   return theme;
-    // }).toList());
-
-    // await DBProvider.db.newThemeList(themes);
   }
 
   Future<ThemeWords> _createAndSaveTheme(Map<String, dynamic> json) async {
     final nameTheme = json["theme"];
     final jsonListWord = json["allWords"];
 
+    print("---------00");
     ThemeWords theme = ThemeWords(name: nameTheme);
+    print("---------11");
 
-    final List<Word> words = jsonListWord.map((jsonWord) => Word.fromJson(jsonWord, nameTheme)).toList();
+    
 
+    final List<Word> words = await Future.wait( jsonListWord.map((jsonWord) => Word.fromJson(jsonWord, nameTheme)).toList());
+
+    print("---------22");
     await DBProvider.db.newWordList(words);
 
     theme.allWords.addAll(words);
