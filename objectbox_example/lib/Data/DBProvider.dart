@@ -35,13 +35,12 @@ class DBProvider {
     _store.close();
   }
 
-   newUsersList(List<User> users) async {
+  newUsersList(List<User> users) async {
     final db = await _dataBase;
     final boxUser = db.box<User>();
 
     List<int> ids = boxUser.putMany(users);
     boxUser.getMany(ids);
-
   }
 
   Future<List<User>> getAllUsers() async {
@@ -52,23 +51,30 @@ class DBProvider {
     return (listUsers == Null) ? [] : listUsers;
   }
 
+  newThemeList(List<Theme> themes) async {
+    final db = await _dataBase;
+    final boxThemes = db.box<Theme>();
+
+    List<int> ids = boxThemes.putMany(themes);
+    boxThemes.getMany(ids);
+  }
   
-  newWordList(List<Word> words) async {
-    final db = await _dataBase;
-    final boxWord = db.box<Word>();
+  // newWordList(List<Word> words) async {
+  //   final db = await _dataBase;
+  //   final boxWord = db.box<Word>();
 
-    List<int> ids = boxWord.putMany(words);
-    boxWord.getMany(ids);
-  }
+  //   List<int> ids = boxWord.putMany(words);
+  //   boxWord.getMany(ids);
+  // }
 
-  newTheme(Theme theme, List<Word> words) async {
-    final db = await _dataBase;
-    final boxTheme = db.box<Theme>();
+  // newTheme(Theme theme, List<Word> words) async {
+  //   final db = await _dataBase;
+  //   final boxTheme = db.box<Theme>();
 
-    final ids = boxTheme.put(theme);
+  //   final ids = boxTheme.put(theme);
     
-    // boxWord.getMany(ids);
-  }
+  //   // boxWord.getMany(ids);
+  // }
 
 
 }
