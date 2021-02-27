@@ -1,6 +1,7 @@
 import 'package:hive/hive.dart';
 import 'package:objectbox_example/Models/User.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'dart:core';
 
 class DBProvider {
 
@@ -26,13 +27,35 @@ newUsersList(List<User> users) async {
   
 addUser(User user) async {
   var box = await Hive.openBox<User>('User');
-  box.add(user);
+
+  final int key = user.id;
+  //индекс в коробке срекди ключей
+  //если индекс -1 то такого ключа нет
+  int index = box.keys.toList().indexWhere((e) => e == key); 
+
+  // print(box.keys.toList());
+  // print(isConteins);
+
+  if (index != -1) {
+    //такой юзер уже есть, надо обновить
+    user.email = 'rabotaiSuka@mail.ru';
+    box.putAt(index, user);
+  } else {
+    box.put(key, user);
+  }
+
+  // box.add(user);
 }  
 
 Future<List<User>> getAllUsers() async {
   var box = await Hive.openBox<User>('User');
 
   return box.values.toList();
+}
+
+Future<bool> conteinsUser(User user) async {
+  var box = await Hive.openBox<User>('User');
+  return box.keys.contains(user.id);
 }
   
   
