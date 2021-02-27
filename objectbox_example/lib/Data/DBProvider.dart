@@ -43,8 +43,8 @@ class DBProvider {
     final query = boxUser.query(User_.id.equals(userID)).build();
     
     if (query.find().isEmpty) {
-      final id = boxUser.put(user);
-      boxUser.get(id);
+      boxUser.put(user);
+      // boxUser.get(id);
     }
 
 

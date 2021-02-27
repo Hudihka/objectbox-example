@@ -16,13 +16,14 @@ ModelDefinition getObjectBoxModel() {
     "entities": [
       {
         "id": "1:1832078332004714090",
-        "lastPropertyId": "4:8630611726086961990",
+        "lastPropertyId": "5:1341837711624022631",
         "name": "User",
         "properties": [
           {"id": "1:68379167268536772", "name": "id", "type": 6, "flags": 1},
           {"id": "2:3649932714180222825", "name": "name", "type": 9},
           {"id": "3:5415255559237254566", "name": "phone", "type": 9},
-          {"id": "4:8630611726086961990", "name": "email", "type": 9}
+          {"id": "4:8630611726086961990", "name": "email", "type": 9},
+          {"id": "5:1341837711624022631", "name": "idBack", "type": 6}
         ],
         "relations": [],
         "backlinks": []
@@ -56,6 +57,7 @@ ModelDefinition getObjectBoxModel() {
         fbb.addOffset(1, offsetname);
         fbb.addOffset(2, offsetphone);
         fbb.addOffset(3, offsetemail);
+        fbb.addInt64(4, object.idBack);
         fbb.finish(fbb.endTable());
         return object.id ?? 0;
       },
@@ -68,6 +70,7 @@ ModelDefinition getObjectBoxModel() {
         object.name = fb.StringReader().vTableGet(buffer, rootOffset, 6);
         object.phone = fb.StringReader().vTableGet(buffer, rootOffset, 8);
         object.email = fb.StringReader().vTableGet(buffer, rootOffset, 10);
+        object.idBack = fb.Int64Reader().vTableGet(buffer, rootOffset, 12);
         return object;
       });
 
@@ -83,4 +86,6 @@ class User_ {
       QueryStringProperty(entityId: 1, propertyId: 3, obxType: 9);
   static final email =
       QueryStringProperty(entityId: 1, propertyId: 4, obxType: 9);
+  static final idBack =
+      QueryIntegerProperty(entityId: 1, propertyId: 5, obxType: 6);
 }
