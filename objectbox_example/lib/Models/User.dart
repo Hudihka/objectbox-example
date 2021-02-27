@@ -15,14 +15,14 @@ class User extends HiveObject {
 
   User({this.id, this.name, this.phone, this.email});
 
-  // factory User.fromJson(Map<String, dynamic> json) {
-  //   return User(
-  //     id: json['id'],
-  //     name: json['name'],
-  //     email: json['email'],
-  //     phone: json['phone']
-  //   );
-  // }
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      id: json['id'],
+      name: json['name'],
+      email: json['email'],
+      phone: json['phone']
+    );
+  }
 
 }
 

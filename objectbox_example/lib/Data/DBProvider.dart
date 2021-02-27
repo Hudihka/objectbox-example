@@ -1,54 +1,81 @@
 import 'dart:io';
+import 'package:hive/hive.dart';
 import 'package:objectbox_example/Models/User.dart';
-import 'package:path_provider/path_provider.dart';
-import '../objectbox.g.dart';
-
+import 'package:path_provider/path_provider.dart' as pathProvider;
 
 class DBProvider {
 
   DBProvider._();
 
   static final DBProvider db = DBProvider._();
-  static Store _store;
-  // Box<User> _boxUser;
 
-  Future<Store> get _dataBase async {
-    if (_store != null) {
-      return _store;
-    }
+Future<void> initDB() async {
+  Directory directory = await pathProvider.getApplicationDocumentsDirectory();
+  Hive.init(directory.path);
+  Hive.openBox('name_box');
+  Hive.registerAdapter(UserAdapter()); 
+}
 
-    // если _database имеет значение null, мы создаем его экземпляр
-    await initDB();
-    return _store;
-  }
+newUsersList(List<User> users) async {
+  User user = users.first;
+  addUser(user);
+}
+  
+addUser(User user) async {
+  var box = await Hive.openBox<User>('User');
+  box.add(user);
+}  
 
-  Future<Store> initDB() async {
+Future<List<User>> getAllUsers() async {
+  var box = await Hive.openBox<User>('User');
+
+  return box.values.toList();
+}
+  
+  
+  
+  
+  
+  // static Store _store;
+  // // Box<User> _boxUser;
+
+  // Future<Store> get _dataBase async {
+  //   if (_store != null) {
+  //     return _store;
+  //   }
+
+  //   // если _database имеет значение null, мы создаем его экземпляр
+  //   await initDB();
+  //   return _store;
+  // }
+
+  // Future<Store> initDB() async {
     
-    await getApplicationDocumentsDirectory().then((Directory dir) async {
-      _store = Store(getObjectBoxModel(), directory: dir.path + '/objectbox');
-    });
-  }
+  //   await getApplicationDocumentsDirectory().then((Directory dir) async {
+  //     _store = Store(getObjectBoxModel(), directory: dir.path + '/objectbox');
+  //   });
+  // }
 
-  clear() {
-    _store.close();
-  }
+  // clear() {
+  //   _store.close();
+  // }
 
-   newUsersList(List<User> users) async {
-    final db = await _dataBase;
-    final boxUser = db.box<User>();
+  //  newUsersList(List<User> users) async {
+  //   final db = await _dataBase;
+  //   final boxUser = db.box<User>();
 
-    List<int> ids = boxUser.putMany(users);
-    boxUser.getMany(ids);
+  //   List<int> ids = boxUser.putMany(users);
+  //   boxUser.getMany(ids);
 
-  }
+  // }
 
-  Future<List<User>> getAllUsers() async {
-    final db = await _dataBase;
-    final boxUser = db.box<User>();
+  // Future<List<User>> getAllUsers() async {
+  //   final db = await _dataBase;
+  //   final boxUser = db.box<User>();
 
-    final List<User> listUsers = boxUser.getAll();
-    return (listUsers == Null) ? [] : listUsers;
-  }
+  //   final List<User> listUsers = boxUser.getAll();
+  //   return (listUsers == Null) ? [] : listUsers;
+  // }
 
 
 

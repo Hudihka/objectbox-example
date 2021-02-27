@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
+import 'package:objectbox_example/Data/DBProvider.dart';
 import 'home_page.dart';
-import 'dart:io';
-import 'package:path_provider/path_provider.dart' as pathProvider;
-
 
 Future<void> main() async {
-  Directory directory = await pathProvider.getApplicationDocumentsDirectory();
-  Hive.init(directory.path);
-  Hive.openBox('name_box');
+  await DBProvider.db.initDB();
 
   runApp(MyApp());
 }
