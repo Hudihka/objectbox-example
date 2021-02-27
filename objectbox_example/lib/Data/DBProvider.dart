@@ -21,28 +21,35 @@ Future<void> initDB() async {
 }
 
 newUsersList(List<User> users) async {
-  User user = users.first;
-  addUser(user);
+  var box = await Hive.openBox<User>('User');
+
+  Map<int, User> allUser = {};
+  await Future.forEach(users, (e) async {
+    allUser[e.id] = e;
+  });
+
+  box.putAll(allUser);
+
 }
   
 addUser(User user) async {
   var box = await Hive.openBox<User>('User');
 
   final int key = user.id;
+  box.put(key, user);
+
+  // final int key = user.id;
   //индекс в коробке срекди ключей
   //если индекс -1 то такого ключа нет
-  int index = box.keys.toList().indexWhere((e) => e == key); 
+  // int index = box.keys.toList().indexWhere((e) => e == key); 
 
-  // print(box.keys.toList());
-  // print(isConteins);
-
-  if (index != -1) {
-    //такой юзер уже есть, надо обновить
-    user.email = 'rabotaiSuka@mail.ru';
-    box.putAt(index, user);
-  } else {
-    box.put(key, user);
-  }
+  // if (index != -1) {
+  //   //такой юзер уже есть, надо обновить
+  //   user.email = 'rabotaiSuka@mail.ru';
+  //   box.putAt(index, user);
+  // } else {
+  //   box.put(key, user);
+  // }
 
   // box.add(user);
 }  
