@@ -1,7 +1,6 @@
-import 'dart:io';
 import 'package:hive/hive.dart';
 import 'package:objectbox_example/Models/User.dart';
-import 'package:path_provider/path_provider.dart' as pathProvider;
+import 'package:hive_flutter/hive_flutter.dart';
 
 class DBProvider {
 
@@ -10,10 +9,14 @@ class DBProvider {
   static final DBProvider db = DBProvider._();
 
 Future<void> initDB() async {
-  Directory directory = await pathProvider.getApplicationDocumentsDirectory();
-  Hive.init(directory.path);
+  await Hive.initFlutter();
   Hive.openBox('name_box');
   Hive.registerAdapter(UserAdapter()); 
+
+
+  // await Hive.initFlutter();
+  // Hive.registerAdapter(UserAdapter());
+  // await Hive.openBox<Todo>(HiveBoxes.todo);
 }
 
 newUsersList(List<User> users) async {
