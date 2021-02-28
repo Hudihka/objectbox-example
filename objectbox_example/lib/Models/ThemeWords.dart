@@ -1,7 +1,7 @@
 
 import 'package:hive/hive.dart';
 import 'package:objectbox_example/Extension/String.dart';
-// import 'Word.dart';
+import 'Word.dart';
 part 'ThemeWords.g.dart';
 
 @HiveType(typeId: 0)
@@ -13,8 +13,7 @@ class ThemeWords extends HiveObject {
   String name;
 
   @HiveField(2)
-  int listWord;
-  // final List<Word> listWord;
+  final List<Word> listWord;
 
   ThemeWords({this.id, this.name, this.listWord});
 
@@ -23,11 +22,11 @@ class ThemeWords extends HiveObject {
     String id = name.generateMd5;
     List<dynamic> data = json['allWords'];
 
-    // List<Word> listWord = [];//Word.fromListOfMap(data, theme);
+    List<Word> listWord = Word.fromListOfMap(data, name);
 
     return ThemeWords(id: id,
                       name: name,
-                      listWord: data.length);
+                      listWord: listWord);
   }
 
 }

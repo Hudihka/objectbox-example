@@ -1,53 +1,55 @@
 
-// import 'package:hive/hive.dart';
-// part 'Word.g.dart';
+import 'package:hive/hive.dart';
+import 'package:objectbox_example/Extension/String.dart';
+part 'Word.g.dart';
 
-// @HiveType(typeId: 1)
-// class Word {
-//   @HiveField(0)
-//   String id;
 
-//   @HiveField(1)
-//   String engValue;
+@HiveType(typeId: 1)
+class Word {
+  @HiveField(0)
+  String id;
 
-//   @HiveField(2)
-//   String rusValue;
+  @HiveField(1)
+  String engValue;
 
-//   @HiveField(3)
-//   String descript;
+  @HiveField(2)
+  String rusValue;
 
-//   @HiveField(4)
-//   String theme;
+  @HiveField(3)
+  String descript;
 
-//   @HiveField(5)
-//   bool favorit;
+  @HiveField(4)
+  String theme;
 
-//   Word({this.id, this.engValue, this.rusValue, this.descript, this.theme});
+  @HiveField(5)
+  bool favorit;
 
-//   factory Word.fromJson(Map<String, dynamic> json, String theme) {
+  Word({this.id, this.engValue, this.rusValue, this.descript, this.theme});
 
-//     final String eng = json['engValue'];
-//     final String rus = json['rusValue'];
-//     final String des = json['descript'];
+  factory Word.fromJson(Map<String, dynamic> json, String theme) {
 
-//     final String id = '${theme}_${eng}_${rus}_$des';
+    final String eng = json['engValue'];
+    final String rus = json['rusValue'];
+    final String des = json['descript'];
 
-//     return Word(id: id,
-//                 engValue: eng,
-//                 rusValue: rus,
-//                 descript: des,
-//                 theme: theme);
-//   }
+    final String id = '${theme}_${eng}_${rus}_$des'.generateMd5;
 
-//   static List<Word> fromListOfMap(List<dynamic> data, String theme) {
-//     List<Word> wordLists = List<Word>();
+    return Word(id: id,
+                engValue: eng,
+                rusValue: rus,
+                descript: des,
+                theme: theme);
+  }
+
+  static List<Word> fromListOfMap(List<dynamic> data, String theme) {
+    List<Word> wordLists = List<Word>();
     
-//     data.forEach((element) {
-//       wordLists.add(Word.fromJson(element, theme));
-//     });
+    data.forEach((element) {
+      wordLists.add(Word.fromJson(element, theme));
+    });
 
-//     return wordLists;
-//   }
+    return wordLists;
+  }
 
-// }
+}
 

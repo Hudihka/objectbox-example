@@ -53,7 +53,7 @@ class UserList extends StatelessWidget {
         // leading: CircleAvatar(
         //   child: Text(obj.id.toString()),
         // ),
-        trailing: Text('${obj.listWord}'),
+        trailing: Text('слов ${obj.listWord.length}'),
         onTap: () {
           print('--------- ${obj.name} ---------------');
         },
