@@ -5,7 +5,7 @@ import 'package:objectbox_example/Data/DBProvider.dart';
 import 'package:objectbox_example/Models/ThemeWords.dart';
 
 class ThemeState {
-  
+
   final bool loadStatus;
   final List<ThemeWords> listThemes;
 
@@ -23,7 +23,7 @@ class ThemeState {
 
 class ThemeCubit extends Cubit<ThemeState>{
   
-  LoadContent _userProvider = LoadContent();
+  LoadContent _themeProvider = LoadContent();
   List<ThemeWords> _listThemes = [];
   final DBProvider cash = DBProvider.db;
 
@@ -41,7 +41,7 @@ class ThemeCubit extends Cubit<ThemeState>{
     try {
       // загружаем юзеров и показываем уже из памяти
 
-      await _userProvider.getThemes();
+      await _themeProvider.getThemes();
 
       _listThemes = await cash.getAllThemes();
       emit(userState.copyWith(listThemes: _listThemes, loadStatus: false));
@@ -53,7 +53,7 @@ class ThemeCubit extends Cubit<ThemeState>{
 
   Future<void> reloadUser() async {
     try {
-      await _userProvider.getThemes();
+      await _themeProvider.getThemes();
       _listThemes = await cash.getAllThemes();
       emit(userState.copyWith(listThemes: _listThemes, loadStatus: false));
     } catch(_) {
