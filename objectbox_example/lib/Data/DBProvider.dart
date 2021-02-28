@@ -3,7 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'dart:core';
 
 import 'package:objectbox_example/Models/ThemeWords.dart';
-import 'package:objectbox_example/Models/Word.dart';
+// import 'package:objectbox_example/Models/Word.dart';
 
 class DBProvider {
 
@@ -15,7 +15,7 @@ Future<void> initDB() async {
   await Hive.initFlutter();
   Hive.openBox('name_box');
   Hive.registerAdapter(ThemeWordsAdapter()); 
-  Hive.registerAdapter(WordAdapter()); 
+  // Hive.registerAdapter(WordAdapter()); 
 
 
   // await Hive.initFlutter();
@@ -39,18 +39,18 @@ Future<void> newThemeList(List<ThemeWords> themes) async {
 }
 
 
-_newWordList(List<Word> words) async {
-  var box = await Hive.openBox<Word>('Word');
+// _newWordList(List<Word> words) async {
+  // var box = await Hive.openBox<Word>('Word');
 
-  Map<String, Word> allWord = {};
-  Set<String> newId = {};
+  // Map<String, Word> allWord = {};
+  // Set<String> newId = {};
 
-  for (var e in words){
-    allWord[e.id] = e;
-    newId.add(e.id);
-  }
+  // for (var e in words){
+  //   allWord[e.id] = e;
+  //   newId.add(e.id);
+  // }
 
-  box.putAll(allWord);
+  // box.putAll(allWord);
 
   // Set<String> oldID = box.keys;
   // Set<String> deleteID = oldID.difference(newId);//те что надо удалить
@@ -58,8 +58,8 @@ _newWordList(List<Word> words) async {
   // if (deleteID.isNotEmpty) {
   //   box.deleteAll(deleteID);
   // }
-
-}
+// 
+// }
 
 Future<List<ThemeWords>> getAllThemes() async {
   var box = await Hive.openBox<ThemeWords>('ThemeWords');

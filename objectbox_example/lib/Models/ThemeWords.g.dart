@@ -18,7 +18,7 @@ class ThemeWordsAdapter extends TypeAdapter<ThemeWords> {
     };
     return ThemeWords(
       name: fields[0] as String,
-      listWord: (fields[1] as List)?.cast<Word>(),
+      listWord: fields[1] as int,
     );
   }
 
