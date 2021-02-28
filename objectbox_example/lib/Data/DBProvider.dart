@@ -24,19 +24,29 @@ newUsersList(List<User> users) async {
   var box = await Hive.openBox<User>('User');
 
   Map<int, User> allUser = {};
+  // Set<int> newId = {};
   await Future.forEach(users, (e) async {
     allUser[e.id] = e;
+    // newId.add(e.id);
   });
 
   box.putAll(allUser);
 
+  //если надо удалять те, что не пришли
+  // Set<int> oldID = box.keys;
+  // Set<int> deleteID = oldID.difference(newId);//те что надо удалить
+
+  // if (deleteID.isNotEmpty) {
+  //   box.deleteAll(deleteID);
+  // }
+
 }
   
-addUser(User user) async {
-  var box = await Hive.openBox<User>('User');
+// addUser(User user) async {
+//   var box = await Hive.openBox<User>('User');
 
-  final int key = user.id;
-  box.put(key, user);
+//   final int key = user.id;
+//   box.put(key, user);
 
   // final int key = user.id;
   //индекс в коробке срекди ключей
@@ -52,7 +62,7 @@ addUser(User user) async {
   // }
 
   // box.add(user);
-}  
+// }  
 
 Future<List<User>> getAllUsers() async {
   var box = await Hive.openBox<User>('User');
