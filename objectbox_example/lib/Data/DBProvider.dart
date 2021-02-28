@@ -58,12 +58,12 @@ _newWordList(List<Word> words) async {
 
   box.putAll(allWord);
 
-  // Set<String> oldID = box.keys;
-  // Set<String> deleteID = oldID.difference(newId);//те что надо удалить
+  Set<dynamic> oldID = box.keys.toSet();
+  Set<dynamic> deleteID = oldID.difference(newId);//те что надо удалить
 
-  // if (deleteID.isNotEmpty) {
-  //   box.deleteAll(deleteID);
-  // }
+  if (deleteID.isNotEmpty) {
+    box.deleteAll(deleteID);
+  }
 
 }
 
