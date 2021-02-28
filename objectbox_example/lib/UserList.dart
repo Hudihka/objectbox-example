@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:objectbox_example/Models/ThemeWords.dart';
 import 'Cubit/ThemeCubit.dart';
 import 'Models/User.dart';
 
@@ -10,12 +11,13 @@ class UserList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //говорит о том, что грузим юзеров при запуске
-    final UserCubit userCubit = context.read();
+    final ThemeCubit userCubit = context.read();
     userCubit.fetchUser();
 
-    return BlocBuilder<UserCubit, UserState>(builder: (context, state) {
-      if (state is UserState){
-        List<User> _dataArray = state.listUsers;
+    return BlocBuilder<ThemeCubit, ThemeState>(builder: (context, state) {
+
+      if (state is ThemeState){
+        List<ThemeWords> _dataArray = state.listThemes;
         bool _loadStatus = state.loadStatus;
 
         if (_dataArray.isEmpty)  {
@@ -28,7 +30,7 @@ class UserList extends StatelessWidget {
             child: ListView.builder(
                 itemCount: _dataArray.length,
                 itemBuilder: (context, index) {
-                  User obj = _dataArray[index];
+                  ThemeWords obj = _dataArray[index];
                   return _cellForIndex(obj);
                 }),
             onRefresh: (){
@@ -41,7 +43,7 @@ class UserList extends StatelessWidget {
     });
   }
 
-  Widget _cellForIndex(User obj) {
+  Widget _cellForIndex(ThemeWords obj) {
     //ячейка по индексу
 
     return Ink(
@@ -49,12 +51,12 @@ class UserList extends StatelessWidget {
       child: ListTile(
         subtitle: Text(obj.name),
         title: Text(obj.name),
-        leading: CircleAvatar(
-          child: Text(obj.id.toString()),
-        ),
-        trailing: Text(obj.email),
+        // leading: CircleAvatar(
+        //   child: Text(obj.id.toString()),
+        // ),
+        trailing: Text('${obj.listWord.length}'),
         onTap: () {
-          print('---------${obj.name} - ${obj.phone}----------------');
+          print('--------- ${obj.name} ---------------');
         },
       ),
     );
@@ -63,7 +65,7 @@ class UserList extends StatelessWidget {
   Future<void> _refresh(BuildContext context, bool loadStatus) async {
     if (loadStatus == false) {
       //идем в верх по дереву виджетов пока не дойдем до блока
-      final UserCubit userCubit = context.read();
+      final ThemeCubit userCubit = context.read();
       userCubit.reloadUser();
     }
   }

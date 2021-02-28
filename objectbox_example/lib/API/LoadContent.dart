@@ -2,6 +2,8 @@
 
 import 'package:objectbox_example/Content/ALLCONTENT.dart';
 import 'package:objectbox_example/Data/DBProvider.dart';
+import 'package:objectbox_example/Models/ThemeWords.dart';
+import 'package:objectbox_example/Models/Word.dart';
 
 
 class LoadContent {
