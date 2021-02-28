@@ -17,7 +17,7 @@ class ThemeWords extends HiveObject {
     String theme = json['theme'];
     List<dynamic> data = json['allWords'];
 
-    List<Word> listWord = Word.fromListOfMap(data, theme);
+    List<Word> listWord = [];//Word.fromListOfMap(data, theme);
 
     return ThemeWords(name: theme,
                       listWord: listWord);

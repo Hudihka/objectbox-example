@@ -24,15 +24,15 @@ Future<void> initDB() async {
 }
 
 
-newThemeList(List<ThemeWords> themes) async {
+Future<void> newThemeList(List<ThemeWords> themes) async {
   var box = await Hive.openBox<ThemeWords>('ThemeWords');
 
-  Map<int, ThemeWords> allThemes = {};
+  Map<String, ThemeWords> allThemes = {};
 
-  await Future.forEach(themes, (e) async {
-    allThemes[e.id] = e;
-    _newWordList(e.listWord);
-  });
+  for (var e in themes){
+    allThemes[e.name] = e;
+    // _newWordList(e.listWord);
+  }
 
   box.putAll(allThemes);
 
@@ -42,22 +42,22 @@ newThemeList(List<ThemeWords> themes) async {
 _newWordList(List<Word> words) async {
   var box = await Hive.openBox<Word>('Word');
 
-  Map<int, Word> allWord = {};
-  Set<int> newId = {};
+  Map<String, Word> allWord = {};
+  Set<String> newId = {};
 
-  await Future.forEach(words, (e) async {
+  for (var e in words){
     allWord[e.id] = e;
     newId.add(e.id);
-  });
+  }
 
   box.putAll(allWord);
 
-  Set<int> oldID = box.keys;
-  Set<int> deleteID = oldID.difference(newId);//те что надо удалить
+  // Set<String> oldID = box.keys;
+  // Set<String> deleteID = oldID.difference(newId);//те что надо удалить
 
-  if (deleteID.isNotEmpty) {
-    box.deleteAll(deleteID);
-  }
+  // if (deleteID.isNotEmpty) {
+  //   box.deleteAll(deleteID);
+  // }
 
 }
 
