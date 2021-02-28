@@ -26,11 +26,15 @@ Future<void> initDB() async {
 
 Future<void> newThemeList(List<ThemeWords> themes) async {
   var box = await Hive.openBox<ThemeWords>('ThemeWords');
+  
+  // ThemeWords tem = themes.first;
+  // final String key = tem.name;
+  // box.put(key, tem);
 
   Map<String, ThemeWords> allThemes = {};
 
   for (var e in themes){
-    allThemes[e.name] = e;
+    allThemes[e.id] = e;
     // _newWordList(e.listWord);
   }
 

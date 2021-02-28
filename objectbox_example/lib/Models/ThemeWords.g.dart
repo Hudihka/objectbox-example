@@ -17,18 +17,21 @@ class ThemeWordsAdapter extends TypeAdapter<ThemeWords> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return ThemeWords(
-      name: fields[0] as String,
-      listWord: fields[1] as int,
+      id: fields[0] as String,
+      name: fields[1] as String,
+      listWord: fields[2] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, ThemeWords obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(3)
       ..writeByte(0)
-      ..write(obj.name)
+      ..write(obj.id)
       ..writeByte(1)
+      ..write(obj.name)
+      ..writeByte(2)
       ..write(obj.listWord);
   }
 
